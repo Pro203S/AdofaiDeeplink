@@ -37,7 +37,9 @@ namespace AdofaiDeeplinkMod
                 watcher.Created += new FileSystemEventHandler((o, ev) =>
                 {
                     Logger.Log("deeplink.txt created");
-                    ADOBase.LoadScene("scnEditor");
+
+                    GCS.sceneToLoad = GCNS.sceneEditor;
+                    scrController.instance.StartLoadingScene();
                 });
                 watcher.EnableRaisingEvents = true;
                 watcher.NotifyFilter = (NotifyFilters)375;

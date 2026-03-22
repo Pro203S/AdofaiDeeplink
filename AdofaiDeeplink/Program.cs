@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AdofaiDeeplink
@@ -27,11 +28,48 @@ namespace AdofaiDeeplink
             return null;
         }
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             if (args.Length == 0)
             {
+                bool install = false;
+                if (Installer.Installed())
+                {
+                    install = MessageBox.Show(
+                        "이미 AdofaiDeeplink가 설치되어있습니다." +
+                        "\n새로 설치하시겠습니까?" +
+                        "\n" +
+                        "\nAdofaiDeeplink is already installed." +
+                        "\nDo you want to install a new installation?",
+                        "AdofaiDeeplink",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes;
+                }
+                else
+                {
+                    install = MessageBox.Show(
+                        "AdofaiDeeplink를 설치하시겠습니까?" +
+                        "\n" +
+                        "\nAre you sure you want to install Adofai Deeplink?",
+                        "AdofaiDeeplink",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes;
+                }
+
+                if (!install) Environment.Exit(0);
+
+                Installer.RunAdminTask();
                 Environment.Exit(0);
+            }
+
+            if (args[0] == "installAdofaiDeeplink")
+            {
+                Installer.CopyFiles();
+                Installer.EditRegistry();
+                await Installer.InstallMod();
+
+                MessageBox.Show("설치가 완료되었습니다.\n\nInstallation complete!", "AdofaiDeeplink", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
 
             string levelPath = args[0];

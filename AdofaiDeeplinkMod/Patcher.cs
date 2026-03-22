@@ -14,7 +14,8 @@ namespace AdofaiDeeplinkMod
 
             Main.Logger.Log("deeplink.txt found.");
 
-            ADOBase.LoadScene("scnEditor");
+            GCS.sceneToLoad = GCNS.sceneEditor;
+            scrController.instance.StartLoadingScene();
             return;
         }
     }

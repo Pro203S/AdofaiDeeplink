@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AdofaiDeeplink")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("A Dance of Fire and Ice")]
+[assembly: AssemblyDescription("This is not A Dance of Fire and Ice")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Pro203S")]
 [assembly: AssemblyProduct("AdofaiDeeplink")]
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
