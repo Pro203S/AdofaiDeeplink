@@ -1,0 +1,8 @@
+{
+  "Id": "AdofaiDeeplink",
+  "DisplayName": "AdofaiDeeplink",
+  "Author": "Pro203S",
+  "Version": "1.0.0",
+  "AssemblyName": "AdofaiDeeplinkMod.dll",
+  "EntryMethod": "AdofaiDeeplinkMod.Main.Startup"
+}

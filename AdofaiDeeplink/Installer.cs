@@ -56,26 +56,46 @@ namespace AdofaiDeeplink
 
         public static void EditRegistry()
         {
+            string gamePath = FindAdofaiPath.GetAdofaiInstallPath() + "\\A Dance of Fire and Ice.exe";
+
             RegistryKey classesRoot = Registry.ClassesRoot;
 
             RegistryKey adofaiExt = classesRoot.CreateSubKey(".adofai", true);
             RegistryKey adofaiFile = classesRoot.CreateSubKey("adofaifile", true);
+            RegistryKey adofaiLink = classesRoot.CreateSubKey("adofailink", true);
 
+            // adofai://
+            adofaiLink.SetValue("", "URL:A Dance of Fire and Ice Protocol");
+            adofaiLink
+                .CreateSubKey("DefaultIcon", true)
+                .SetValue("", $"\"{gamePath}\",0");
+
+            RegistryKey linkcmd = adofaiLink
+                .CreateSubKey("shell", true)
+                .CreateSubKey("open", true)
+                .CreateSubKey("command", true);
+
+            linkcmd.SetValue("", $"\"{AdofaiDeeplinkExe}\" \"%1\"");
+
+            // *.adofai
             adofaiExt.SetValue("", "adofaifile", RegistryValueKind.String);
             adofaiExt.CreateSubKey("OpenWithProgids", true).SetValue("adofaifile", "", RegistryValueKind.String);
-
-            string gamePath = FindAdofaiPath.GetAdofaiInstallPath() + "\\A Dance of Fire and Ice.exe";
 
             adofaiFile
                 .CreateSubKey("DefaultIcon", true)
                 .SetValue("", $"\"{gamePath}\",0");
 
-            RegistryKey command = adofaiFile
+            RegistryKey extcmd = adofaiFile
                 .CreateSubKey("shell", true)
                 .CreateSubKey("open", true)
                 .CreateSubKey("command", true);
 
-            command.SetValue("", $"\"{AdofaiDeeplinkExe}\" \"%1\"");
+            extcmd.SetValue("", $"\"{AdofaiDeeplinkExe}\" \"%1\"");
+        }
+
+        public static void Uninstall()
+        {
+
         }
     }
 }
