@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 // 바이브코드는좀나이스한거가틈
@@ -31,7 +32,6 @@ namespace AdofaiDeeplink
                 var installdir = TryParseInstallDirFromManifest(manifest);
                 if (string.IsNullOrEmpty(installdir)) continue;
 
-                // 🔥 steamapps를 포함한 전체 경로
                 var gamePath = Path.Combine(root, "common", installdir);
                 if (Directory.Exists(gamePath))
                     return gamePath;

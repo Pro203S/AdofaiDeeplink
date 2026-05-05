@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,24 +20,36 @@ namespace AdofaiDeeplink
 
         public static void RunAdminTask()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.FileName = Assembly.GetExecutingAssembly().Location;
-            startInfo.Verb = "runas";
-            startInfo.UseShellExecute = true;
-            startInfo.Arguments = "installAdofaiDeeplink";
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = Assembly.GetExecutingAssembly().Location,
+                Verb = "runas",
+                UseShellExecute = true,
+                Arguments = "installAdofaiDeeplink"
+            };
 
             Process.Start(startInfo);
         }
 
-        public static async Task InstallMod()
+        public static async Task<Task> InstallMod()
         {
-            return;
+            WebClient wc = new WebClient();
+            wc.Headers.Set("User-Agent", "AdofaiDeeplink-Installer");
+
+            string rawJson = await wc.DownloadStringTaskAsync("https://api.github.com/repos/Pro203S/AdofaiDeeplink/tags");
+            MessageBox.Show(rawJson);
+
+            
+            return Task.CompletedTask;
         }
 
         public static void CopyFiles()
         {
             Directory.CreateDirectory(LocalAppdata + "\\Pro203S");
             Directory.CreateDirectory(LocalAppdata + "\\Pro203S\\AdofaiDeepLink");
+
+            if (File.Exists(AdofaiDeeplinkExe))
+                File.Delete(AdofaiDeeplinkExe);
 
             File.Copy(Assembly.GetExecutingAssembly().Location, AdofaiDeeplinkExe);
         }
@@ -49,6 +62,7 @@ namespace AdofaiDeeplink
             RegistryKey adofaiFile = classesRoot.CreateSubKey("adofaifile", true);
 
             adofaiExt.SetValue("", "adofaifile", RegistryValueKind.String);
+            adofaiExt.CreateSubKey("OpenWithProgids", true).SetValue("adofaifile", "", RegistryValueKind.String);
 
             string gamePath = FindAdofaiPath.GetAdofaiInstallPath() + "\\A Dance of Fire and Ice.exe";
 
