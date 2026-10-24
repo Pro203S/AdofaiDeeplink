@@ -1,0 +1,30 @@
+name: 버그 신고 (한국어)
+description: 증상, 재현 방법, 로그 파일을 알려주세요.
+title: "[Bug] "
+body:
+    - type: textarea
+      id: symptoms
+      attributes:
+          label: 증상
+          description: 어떤 문제가 발생했나요? 오류 메시지가 있다면 함께 적어주세요.
+      validations:
+          required: true
+    - type: textarea
+      id: reproduction
+      attributes:
+          label: 재현 방법
+          description: 같은 문제가 발생하도록 따라 할 수 있는 순서를 적어주세요.
+          placeholder: |
+              1.
+              2.
+              3.
+      validations:
+          required: true
+    - type: textarea
+      id: logs
+      attributes:
+          label: 로그 파일 첨부
+          description: |
+              Win+R을 누르고 %localappdata%\Pro203S 를 입력해 폴더를 연 뒤, AdofaiDeeplink-latest.log 파일을 이 입력란에 드래그하거나 파일 첨부 버튼으로 올려주세요.
+              MelonLoader 관련 문제라면 게임 설치 폴더의 MelonLoader\Latest.log도 첨부해주세요.
+              로그 파일이 생성되지 않았다면 그 내용을 적어주세요.

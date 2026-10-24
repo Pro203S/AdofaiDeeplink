@@ -1,0 +1,30 @@
+name: Bug report (English)
+description: Describe the symptoms, reproduction steps, and attach your log file.
+title: "[Bug] "
+body:
+    - type: textarea
+      id: symptoms
+      attributes:
+          label: Symptoms
+          description: What went wrong? Include any error messages.
+      validations:
+          required: true
+    - type: textarea
+      id: reproduction
+      attributes:
+          label: Steps to reproduce
+          description: List the steps someone can follow to reproduce the problem.
+          placeholder: |
+              1.
+              2.
+              3.
+      validations:
+          required: true
+    - type: textarea
+      id: logs
+      attributes:
+          label: Attach log files
+          description: |
+              Press Win+R, enter %localappdata%\Pro203S, and drag AdofaiDeeplink-latest.log into this field or use the attachment button.
+              For MelonLoader issues, also attach MelonLoader\Latest.log from the game folder.
+              If no log file was created, please mention that here.
